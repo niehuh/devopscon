@@ -1,0 +1,26 @@
+pipeline {
+   agent any
+
+   tools {
+      maven "M3"
+   }
+
+   stages {
+      stage('Build') {
+         steps {
+            git 'https://github.com/niehuh/devopscon.git'
+            bat "mvn clean install"
+         }
+         post {
+            success {
+               junit '**/target/surefire-reports/TEST-*.xml'
+            }
+         }
+      }
+      stage('Test') {
+         steps {
+            bat "mvn validate -Pci"     
+         }
+      }
+   }
+}
