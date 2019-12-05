@@ -1,4 +1,4 @@
-pipeline {
+cpipeline {
    agent any
 
    tools {
@@ -19,7 +19,7 @@ pipeline {
       }
       stage('Test') {
          steps {
-            bat "mvn validate -Pci"     
+            bat "mvn clean install -Pci"     
          }
       }
    }
